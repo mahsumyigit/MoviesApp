@@ -2147,24 +2147,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SahaBT Yazılım\\.nuget\\packages\\": {}
+    "C:\\Users\\sahabt\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\SahaBT Yazılım\\Desktop\\MoviesApp\\MoviesApp\\MoviesApp.csproj",
+      "projectUniqueName": "C:\\Users\\sahabt\\MoviesApp\\MoviesApp.csproj",
       "projectName": "MoviesApp",
-      "projectPath": "C:\\Users\\SahaBT Yazılım\\Desktop\\MoviesApp\\MoviesApp\\MoviesApp.csproj",
-      "packagesPath": "C:\\Users\\SahaBT Yazılım\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\SahaBT Yazılım\\Desktop\\MoviesApp\\MoviesApp\\obj\\",
+      "projectPath": "C:\\Users\\sahabt\\MoviesApp\\MoviesApp.csproj",
+      "packagesPath": "C:\\Users\\sahabt\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sahabt\\MoviesApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\SahaBT Yazılım\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\sahabt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

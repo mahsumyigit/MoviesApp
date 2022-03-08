@@ -1,52 +1,175 @@
 public class MoviesRepository : IMovieRepository
 {
-    public Task<Movie> CreateMovie(Movie movie)
+
+    MovieContext _movieContext;
+
+    public MoviesRepository(MovieContext movieContext)
     {
-        throw new NotImplementedException();
+        _movieContext = movieContext;
     }
 
-    public Task<Movie> DeleteMovie(int Id)
+    public async Task<Movie> CreateMovie(Movie movie)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _movieContext.Set<Movie>.AddAsync(movie);
+            await _movieContext.SaveChangesAsync();
+            return movie;
+        }
+        catch (Exception ex)
+        {
+            return null;
+
+        }
     }
 
-    public Task<MovieDetail> FindMovieByDirector(string Director)
+    public async Task<Movie> DeleteMovie(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var findMovie = await _movieContext.Movies.FirstOrDefault(m => m.Id == id);
+            _movieContext.Movies.Remove(findMovie);
+            _movieContext.SaveChangesAsync();
+            return null;
+        }
+        catch (Exception ex)
+        {
+
+            return null;
+
+
+        }
     }
 
-    public Task<Movie> FindMovieByName(string Name)
+    public async Task<MovieDetail> FindMovieByDirector(string director)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _movieContext.Set<MovieDetail>().FirstOrDefaultAsync(m => m.Director == director);
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+
     }
 
-    public Task<MovieDetail> FindMovieByType(Type type)
+    public async Task<Movie> FindMovieByName(string name)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _movieContext.Set<Movie>().FirstOrDefaultAsync(m => m.Name == name);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
-    public Task<MovieDetail> FindMovieByYear(string MovieYear)
+    public async Task<Movie> FindMovieById(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _movieContext.Set<Movie>().FirstOrDefaultAsync(m => m.Name == name);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
-    public Task<List<Movie>> GetAllMovie()
+    public async Task<MovieDetail> FindMovieByType(Type type)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _movieContext.Set<Movie>().FirstOrDefaultAsync(m => m.Type == type);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
-    public Task<MovieDetail> GetAllMovieSortByRatings(double Ratings)
+    public async Task<MovieDetail> FindMovieByYear(string movieYear)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _movieContext.Set<Movie>().FirstOrDefaultAsync(m => m.year == movieYear);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
-    public Task<Movie> GetMovie(int Id)
+    public async Task<List<Movie>> GetAllMovie()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _movieContext.Set<Movie>().ToListAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
-    public Task<Movie> UpdateMovie(int Id, Movie movie)
+    public async Task<List<Movie>> GetAllMovieSortByRatings()
     {
-        throw new NotImplementedException();
+        // tekrar bakılacak
+        try
+        {
+            var allMoviesSorting = await _movieContext.Set<MovieDetail>().OrderByDescending(m =>m.Rating).ToListAsync();
+            if (allMoviesSorting != null)
+            {
+                return allMoviesSorting;
+            }
+            return null;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<Movie> GetMovie(int id)
+    {
+        try
+        {
+            var getMovie = await _movieContext.Set<Movie>().SingleOrDefaultAsync(m=>m.Id == id);
+
+            if (getMovie != null)
+            {
+
+                return getMovie;
+
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    public async Task<Movie> UpdateMovie(int Id, Movie movie)
+    {
+          // tekrar bakılacak
+        try
+        {
+            var movieEdit = await _movieContext.Movie.FindAsync(id);
+            movieEdit.Name = movie.Name;
+    
+
+            await _movieContext.SaveChangesAsync();
+            return movieEdit;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
     }
 }

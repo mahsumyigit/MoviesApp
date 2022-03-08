@@ -1,52 +1,79 @@
 public class MovieService : IMovieService
 {
-    public Task<Movie> CreateMovie(Movie movie)
+
+    private IMovieRepository _movieRepository;
+
+    public MovieService(IMovieRepository movieRepository)
     {
-        throw new NotImplementedException();
+        _movieRepository = movieRepository;
     }
 
-    public Task<Movie> DeleteMovie(int Id)
+    public async Task<Movie> CreateMovie(Movie movie)
     {
-        throw new NotImplementedException();
+        var existCheck = await _movieRepository.FindMovieByName(movie.Name);
+        if(existCheck == null)
+        {
+            return await _movieRepository.CreateMovie(movie);
+        }
+        else{
+            throw new Exception();
+        }
     }
 
-    public Task<MovieDetail> FindMovieByDirector(string Director)
+    public async Task<Movie> DeleteMovie(int id)
     {
-        throw new NotImplementedException();
+        var existCheck = await _movieRepository.FindMovieById(id);
+        if(existCheck != null)
+        {
+            return await _movieRepository.DeleteMovie(id);
+        }
+        else{
+            throw new Exception();
+        }
     }
 
-    public Task<Movie> FindMovieByName(string Name)
+    public async Task<List<MovieDetail>> FindMovieByDirector(string director)
     {
-        throw new NotImplementedException();
+        return await _movieRepository.FindMovieByDirector(director);
     }
 
-    public Task<MovieDetail> FindMovieByType(Type type)
+    public async Task<List<Movie>> FindMovieByName(string name)
     {
-        throw new NotImplementedException();
+        return await _movieRepository.FindMovieByName(name);
     }
 
-    public Task<MovieDetail> FindMovieByYear(string MovieYear)
+    public async Task<List<MovieDetail>> FindMovieByType(Type type)
     {
-        throw new NotImplementedException();
+         return await _movieRepository.FindMovieByType(type);
     }
 
-    public Task<List<Movie>> GetAllMovie()
+    public async Task<List<MovieDetail>> FindMovieByYear(string movieYear)
     {
-        throw new NotImplementedException();
+       return await _movieRepository.FindMovieByYear(movieYear);
     }
 
-    public Task<MovieDetail> GetAllMovieSortByRatings(double Ratings)
+    public async Task<List<Movie>> GetAllMovie()
     {
-        throw new NotImplementedException();
+       return await _movieRepository.GetAllMovie();
     }
 
-    public Task<Movie> GetMovie(int Id)
+    public async Task<List<MovieDetail>> GetAllMovieSortByRatings()
     {
-        throw new NotImplementedException();
+       return await _movieRepository.GetAllMovieSortByRatings();
     }
 
-    public Task<Movie> UpdateMovie(int Id, Movie movie)
+    public async Task<Movie> GetMovie(int Id)
     {
-        throw new NotImplementedException();
+         if (id != null)
+        {
+            return await _movieRepository.GetMovie(id);
+
+        }
+        return null;
+    }
+
+    public async Task<Movie> UpdateMovie(int Id, Movie movie)
+    {
+      return await _movieRepository.UpdateMovie(Id, movie);
     }
 }
