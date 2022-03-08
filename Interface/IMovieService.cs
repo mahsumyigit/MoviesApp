@@ -1,4 +1,4 @@
-public interface IMovieRepository
+public interface IMovieService
 {
     Task<List<Movie>> GetAllMovie();
     Task<Movie> GetMovie(int Id);
